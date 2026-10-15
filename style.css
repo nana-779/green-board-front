@@ -69,6 +69,22 @@ button {
   background: #23663d;
   color: white;
   cursor: pointer;
+  transition:
+    background-color 0.15s,
+    trasform 0.15s;
+}
+
+button:hover:not(:disabled) {
+  background: #174c2c;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.98s);
+}
+
+button:disabled {
+  background: #647269;
+  cursor: not-allowed;
 }
 
 input,
@@ -121,4 +137,34 @@ form {
 img {
   max-width: 100%;
   height: auto;
+}
+
+nav > a {
+  text-decoration: none;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #23663d;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  header,
+  main,
+  footer {
+    padding: 16px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+  }
 }
