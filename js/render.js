@@ -7,7 +7,7 @@ function renderPosts(posts) {
   for (const post of posts) {
     const item = document.createElement("li");
     const link = document.createElement("a");
-    link.href = "detail.html?id=${post.id}";
+    link.href = `detail.html?id=${post.id}`;
     link.textContent = post.title;
 
     const meta = document.createElement("div");
