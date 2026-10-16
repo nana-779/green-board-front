@@ -1,1 +1,1 @@
-renderPost(posts);
+renderPosts(posts);

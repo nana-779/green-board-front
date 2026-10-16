@@ -1,4 +1,4 @@
-function renderPost(posts) {
+function renderPosts(posts) {
   const list = document.querySelector("#postList");
   if (posts.length === 0) {
     list.textContent = "아직 게시글이 없습니다";
@@ -15,6 +15,34 @@ function renderPost(posts) {
     meta.textContent = `${post.author} | ${post.createdDatetime}`;
 
     item.append(link, meta);
+    list.append(item);
+  }
+}
+
+// 글 상세페이지 만드는 함수
+function renderPost(post) {
+  document.querySelector("#post-title").textContent = post.title;
+  document.querySelector("#post-meta").textContent =
+    `${post.author} | ${post.createdDatetime}`;
+  document.querySelector("#post-content").textContent = post.content;
+}
+
+function renderComments(comments) {
+  const list = document.querySelector("#comment-list");
+  if (comments.length == 0) {
+    list.textContent = "등록된 댓글이 없습니다";
+  }
+
+  for (const comment of comments) {
+    const item = document.createElement("li");
+
+    const author = document.createElement("strong");
+    author.textContent = comment.author;
+
+    const content = document.createElement("p");
+    content.textContent = comment.content;
+
+    item.append(author, content);
     list.append(item);
   }
 }
