@@ -21,7 +21,7 @@ async function logout() {
   try {
     const response = await fetch("http://127.0.0.1:8080/api/user/logout", {
       method: "POST",
-      headers: { ...getAuthHeader(), "Content-Type": "application/json" },
+      headers: { ...getAuthHeader() },
     });
 
     // http 상태코드가 200이 아니거나 API 성공여부가 실패인 경우 예외처리

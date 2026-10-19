@@ -12,7 +12,7 @@ function renderPosts(posts) {
 
     const meta = document.createElement("div");
     meta.className = "meta";
-    meta.textContent = `${post.author} | ${post.createdDatetime}`;
+    meta.textContent = `${post.authorNickname} | ${post.createdDatetime}`;
 
     item.append(link, meta);
     list.append(item);
