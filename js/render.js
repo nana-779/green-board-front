@@ -1,5 +1,7 @@
 function renderPosts(posts) {
   const list = document.querySelector("#postList");
+  list.replaceChildren();
+
   if (posts.length === 0) {
     list.textContent = "아직 게시글이 없습니다";
   }
