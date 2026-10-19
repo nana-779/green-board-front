@@ -14,6 +14,31 @@ function requireLogin() {
   return false;
 }
 
+document.querySelector(".logout-button").addEventListener("click", logout);
+
+async function logout() {
+  // 서버에 토큰 무효화 알리기
+  try {
+    const response = await fetch("http://127.0.0.1:8080/api/user/logout", {
+      method: "POST",
+      headers: { ...getAuthHeader(), "Content-Type": "application/json" },
+    });
+
+    // http 상태코드가 200이 아니거나 API 성공여부가 실패인 경우 예외처리
+    if (!response.ok) {
+      throw new Error("로그아웃에 실패했습니다");
+    }
+
+    // 로컬스토리지 내 토큰 제거
+    localStorage.removeItem("accessToken");
+    // 로그인 페이지로 이동
+    location.href = "login.html";
+  } catch (error) {
+    // #nav-message.textContent -> alert로 대체
+    alert(error.message);
+  }
+}
+
 // Authorization header 생성
 function getAuthHeader() {
   const accessToken = localStorage.getItem("accessToken");
