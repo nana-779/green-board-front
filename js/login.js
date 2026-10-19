@@ -29,8 +29,9 @@ async function login(event) {
       throw new Error("액세스 토근이 없습니다");
     }
 
-    // 로컬 스토리지에 액세스 토큰 저장
+    // 로컬 스토리지에 액세스 토큰 저장하고 홈으로
     localStorage.setItem("accessToken", result.data.accessToken);
+    location.href = "index.html";
   } catch (error) {
     message.textContent = error.message;
   }

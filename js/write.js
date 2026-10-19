@@ -1,6 +1,9 @@
 // 게시글 작성 화면 JS
 // 게시글 제목, 내용 입력하고 버튼 눌러서 등록
 
+// 로그인 안됐을때 로그인 페이지로 리다이렉트
+requireLogin();
+
 const form = document.querySelector("#post-form");
 
 form.addEventListener("submit", function (event) {
