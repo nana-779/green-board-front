@@ -56,5 +56,3 @@ nextButton.addEventListener("click", function () {
     loadPosts(currentPage + 1);
   }
 });
-
-// renderPosts(posts);
