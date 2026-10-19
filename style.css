@@ -101,7 +101,7 @@ header {
   flex-wrap: wrap;
   gap: 16px;
   background-image: url(images/leaf.svg);
-  /* background-repeat: no-repeat; */
+  /* bckground-repeat: no-repeat; */
   background-position: left top;
 }
 

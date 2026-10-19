@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <title>게시글 등록 | 게시판</title>
     <link rel="stylesheet" href="style.css" />
-    <script defer src="js/data.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script defer src="js/storage.js"></script>
+    <script defer src="js/write.js"></script>
   </head>
   <body>
     <header>
@@ -24,8 +25,8 @@
         <input id="title" type="text" required /><br />
         <label>본문</label>
         <textarea id="content" required></textarea>
+        <p id="form-message"></p>
         <button type="submit">게시글 등록</button>
-
         <a href="index.html">목록으로</a>
       </form>
     </main>
