@@ -26,7 +26,7 @@ async function logout() {
     localStorage.removeItem("accessToken");
 
     // 로그인 페이지로 이동
-    location.replace = "login.html";
+    location.replace("login.html");
   } catch (error) {
     // #nav-message.textContent -> alert로 대체
     alert(error.message);

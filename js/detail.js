@@ -8,17 +8,33 @@ async function loadPost() {
     const post = await apiRequest(`/board/${postId}`);
     renderPost(post);
     document.querySelector("#post-message").textContent = "";
+    return true;
   } catch (error) {
     document.querySelector("#post-title").textContent = "게시글 조회 실패";
     document.querySelector("#post-content").textContent = "";
     document.querySelector("#post-message").textContent = error.message;
+    return false;
   }
 }
-document.querySelector("#comments-section").hidden = true;
+
+async function loadComments() {
+  try {
+    const comments = await apiRequest(`/comments/${postId}`);
+    renderComments(comments);
+  } catch (error) {
+    document.querySelector("#comment-message").textContent = error.message;
+  }
+}
 
 if (requireLogin()) {
   if (Number.isSafeInteger(postId) && postId > 0) {
-    loadPost();
+    // 게시글 상세 조회
+    loadPost().then(function (success) {
+      if (success) {
+        // API 조회
+        loadComments();
+      }
+    });
 
     // 해당 postId에 해당하는 댓글말 출력하도록 필터링
     // let filteredComments = comments.filter(
@@ -37,22 +53,22 @@ document
   .querySelector("#comment-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
-    const content = document.querySelector("#comment-content").value.trim();
+    //     const content = document.querySelector("#comment-content").value.trim();
 
-    if (!post || !content || content.length > 255) {
-      document.querySelector("#comment-message").textContent =
-        "댓글은 1-255자 이내로 입력하세요";
-      return;
-    }
+    //     if (!post || !content || content.length > 255) {
+    //       document.querySelector("#comment-message").textContent =
+    //         "댓글은 1-255자 이내로 입력하세요";
+    //       return;
+    //     }
 
-    comments.push({
-      id: getCommentNextId(),
-      boardId: postId,
-      content: content,
-      author: "실습자",
-    });
+    //     comments.push({
+    //       id: getCommentNextId(),
+    //       boardId: postId,
+    //       content: content,
+    //       author: "실습자",
+    //     });
 
-    saveLocal();
-    document.querySelector("#comment-content").value = "";
-    renderComments(comments.filter((comment) => comment.boardId === postId));
+    //     saveLocal();
+    //     document.querySelector("#comment-content").value = "";
+    //     renderComments(comments.filter((comment) => comment.boardId === postId));
   });
