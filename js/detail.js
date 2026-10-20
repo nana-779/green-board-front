@@ -4,15 +4,22 @@ const postId = Number(params.get("id"));
 // posts 배열에서 사용자가 누른 게시글 찾기
 // let post = posts.find((item) => item.id === postId);
 async function loadPost() {
+  const message = document.querySelector("#post-message");
+  message.textContent = "게시글을 불러오는 중 ...";
+
+  const reloadButton = document.querySelector("#retry-post");
+
   try {
     const post = await apiRequest(`/board/${postId}`);
     renderPost(post);
-    document.querySelector("#post-message").textContent = "";
+    message.textContent = "";
+    reloadButton.hidden = true;
     return true;
   } catch (error) {
     document.querySelector("#post-title").textContent = "게시글 조회 실패";
     document.querySelector("#post-content").textContent = "";
-    document.querySelector("#post-message").textContent = error.message;
+    message.textContent = error.message;
+    reloadButton.hidden = false;
     return false;
   }
 }
@@ -72,3 +79,11 @@ document
       message.textContent = error.message;
     }
   });
+
+document.querySelector("#retry-post").addEventListener("click", () => {
+  // 재로드 방법 1. 게시글 불러오는 함수 재호출
+  loadPost();
+
+  // 재로드 방법 2. 페이지 새로고침
+  // location.
+});

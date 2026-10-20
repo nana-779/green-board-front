@@ -17,6 +17,12 @@ function requireLogin() {
 document.querySelector(".logout-button").addEventListener("click", logout);
 
 async function logout() {
+  const button = document.querySelector(".logout-button");
+  if (button.disabled) {
+    return;
+  }
+  button.disabled = true;
+
   // 서버에 토큰 무효화 알리기
   try {
     const accessToken = localStorage.getItem("accessToken");
@@ -30,6 +36,8 @@ async function logout() {
   } catch (error) {
     // #nav-message.textContent -> alert로 대체
     alert(error.message);
+  } finally {
+    button.disabled = false;
   }
 }
 
