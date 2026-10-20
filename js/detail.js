@@ -51,24 +51,24 @@ if (requireLogin()) {
 // 댓글 작성 폼 submit 시 댓글 추가
 document
   .querySelector("#comment-form")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", async function (event) {
     event.preventDefault();
-    //     const content = document.querySelector("#comment-content").value.trim();
 
-    //     if (!post || !content || content.length > 255) {
-    //       document.querySelector("#comment-message").textContent =
-    //         "댓글은 1-255자 이내로 입력하세요";
-    //       return;
-    //     }
+    const input = document.querySelector("#comment-content");
+    const content = input.value.trim();
+    const message = document.querySelector("#comment-message");
 
-    //     comments.push({
-    //       id: getCommentNextId(),
-    //       boardId: postId,
-    //       content: content,
-    //       author: "실습자",
-    //     });
+    if (!content || content.length > 255) {
+      message.textContent = "댓글은 1-255자 이내로 입력하세요";
+      return;
+    }
 
-    //     saveLocal();
-    //     document.querySelector("#comment-content").value = "";
-    //     renderComments(comments.filter((comment) => comment.boardId === postId));
+    try {
+      // 댓글 생성(저장) API 호출
+      await apiRequest(`/comments/${postId}`, "POST", { content });
+      input.value = "";
+      await loadComments();
+    } catch (error) {
+      message.textContent = error.message;
+    }
   });
