@@ -12,24 +12,15 @@ if (requireLogin()) {
 
 async function loadPosts(page = currentPage) {
   try {
-    const response = await fetch(
-      // 함수의 매개변수를 받을 페이지로 조회할수있게
-      `http://127.0.0.1:8080/api/board?page=${page}&size=10`,
-      {
-        headers: { ...getAuthHeader() },
-      },
-    );
-    const result = await response.json();
+    const data = await apiRequest(`/board?page=${page}&size=10`);
 
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "목록 조회 실패");
-    }
-    renderPosts(result.data.content);
-    currentPage = result.data.number;
-    totalPages = result.data.totalPages;
+    renderPosts(data.content);
+
+    currentPage = data.number;
+    totalPages = data.totalPages;
 
     document.querySelector("#list-message").textContent =
-      `전체 ${result.data.totalElements} 개`;
+      `전체 ${data.totalElements} 개`;
 
     let pageNumber = "";
     if (totalPages === 0) {
